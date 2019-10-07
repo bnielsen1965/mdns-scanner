@@ -1,0 +1,20 @@
+{
+  "name": "mdns-scanner",
+  "version": "1.0.0",
+  "description": "Multicast DNS Scanner",
+  "main": "lib/mdns-scanner",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bnielsen1965/mdns-server.git"
+  },
+  "author": "Bryan Nielsen (@bnielsen1965)",
+  "license": "MIT",
+  "dependencies": {
+    "dns-packet": "^5.2.1",
+    "ip": "^1.1.5"
+  }
+}
