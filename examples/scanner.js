@@ -1,10 +1,10 @@
 
 // example of scanner that sends a query and listens for raw mDNS packets
 
-const MDNSScanner = require('../lib/mdns-scanner');
+const { Scanner } = require('../index.js');
 
 // create instance of scanner with init disabled
-let scanner = new MDNSScanner({
+let scanner = new Scanner({
   noInit: true,
   debug: true,
 //  interfaces: '192.168.8.238'

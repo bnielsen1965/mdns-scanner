@@ -2,7 +2,7 @@
   "name": "mdns-scanner",
   "version": "1.0.0",
   "description": "Multicast DNS Scanner",
-  "main": "lib/mdns-scanner",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
