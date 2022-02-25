@@ -7,6 +7,7 @@ let serviceTypes = [];
 let scanner = new MDNSScanner({
   noInit: true,
   debug: true,
+  interfaces: ['enp6s0']
 //  interfaces: ['enp6s0']//, '192.168.18.130']
 });
 
@@ -15,23 +16,23 @@ let services = new MDNSServices(scanner);
 //scanner
 services
   .on('error', error => {
-    console.log('ERROR', error.message);
+    console.log('ERROR EVENT', error.message);
   })
-  .on('warning', message => {
-    console.log('WARNING', message)
+  .on('warn', message => {
+    console.log('WARN EVENT', message)
   })
   .on('debug', message => {
-    console.log('DEBUG', message);
+    console.log('DEBUG EVENT', message);
   })
   .on('query', message => {
-    console.log('QUERY', message)
+    console.log('QUERY EVENT', message.questions)
   })
   .on('response', message => {
 //    console.log('RESPONSE', message)
 //    processResponse(message);
   })
   .on('discovered', message => {
-    console.log('DISCOVERED', message);
+    console.log('DISCOVERED EVENT', message);
     /*
     switch (message.type) {
       case 'type':
@@ -50,7 +51,7 @@ scanner.init()
     scanner.query('_services._dns-sd._udp.local', 'ANY');// 'PTR');// { questions: [{ name: name, type: 'PTR' }] });
   })
   .catch((error) => {
-    console.log('ERROR', error);
+    console.log('CAUGHT ERROR', error.message);
     process.exit(1);
   });
 
