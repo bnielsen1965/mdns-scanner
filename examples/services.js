@@ -3,18 +3,15 @@
 
 const { Scanner, Services } = require('../index.js');
 
-let serviceTypes = [];
-
 // create instance of scanner with init disabled
 let scanner = new Scanner({
-  noInit: true,
-  debug: true,
+  debug: false,
 //  interfaces: '192.168.8.238'
 //  interfaces: ['fe80::a025:dc5b:22b7:2247']
 //  interfaces: ['enp6s0']//, '192.168.18.130']
 });
 
-let services = new Services(scanner);
+let services = new Services(scanner, { debug: true });
 
 // services event listners
 services
@@ -27,11 +24,11 @@ services
   .on('debug', message => {
     console.log('DEBUG EVENT', message);
   })
-  .on('query', message => {
-    console.log('QUERY EVENT', message.questions)
+  .on('query', (message, rinfo) => {
+    console.log('QUERY EVENT', `from: ${rinfo.address},`, 'questions:', message.questions)
   })
   .on('discovered', message => {
-    console.log('DISCOVERED EVENT', message);
+    console.log('DISCOVERED EVENT', JSON.stringify(message, null, 2));
   });
 
 
@@ -55,7 +52,7 @@ setTimeout(() => {
   console.log('Discovered types:', types);
   Object.keys(services.namedServices).forEach(name => {
     console.log(`Service: ${name} from ${services.namedServices[name].rinfo.address}.`);
-    if(services.namedServices[name].service) console.log('Data:', services.namedServices[name].service.data);
+    if(services.namedServices[name].service) console.log('Data:', services.namedServices[name]);
   });
   scanner.destroy();
   process.exit(0);
