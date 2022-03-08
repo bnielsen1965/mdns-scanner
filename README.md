@@ -185,7 +185,7 @@ complete details about advertised services.
 
 Example:
 ```javascript
-const { Scanner, Services } = require('../index.js');
+const { Scanner, Services } = require('mdns-scanner');
 let scanner = new Scanner({ debug: true });
 let services = new Services(scanner);
 
@@ -326,12 +326,10 @@ Example:
       }
     },
     "host": "QNAP4619.local",
-    "hostAddresses": {
-      "QNAP4619.local": {
-        "ipv6": "fe80::265e:beff:fe40:e055",
-        "ipv4": "192.168.8.55"
-      }
-    }
+    "addresses": [
+      { "family": "ipv6", "address": "fe80::265e:beff:fe40:e055" },
+      { "family": "ipv4", "address": "192.168.8.55" }
+    ]
   }
 }
 ```
@@ -417,11 +415,9 @@ Example:
       }
     },
     "host": "fedora.local",
-    "hostAddresses": {
-      "fedora.local": {
-        "ipv6": "fe80::d6c0:e87c:69d2:ccf1"
-      }
-    }
+    "addresses": [
+      { "family": "ipv6", "address": "fe80::d6c0:e87c:69d2:ccf1" }
+    ]
   },
   "QNAP4619 [24:5e:be:40:e0:55]._workstation._tcp.local": {
     "name": "QNAP4619 [24:5e:be:40:e0:55]",
@@ -446,12 +442,10 @@ Example:
       }
     },
     "host": "QNAP4619.local",
-    "hostAddresses": {
-      "QNAP4619.local": {
-        "ipv6": "fe80::265e:beff:fe40:e055",
-        "ipv4": "192.168.8.55"
-      }
-    }
+    "addresses": [
+      { "family": "ipv6", "address": "fe80::265e:beff:fe40:e055" },
+      { "family": "ipv4", "address": "192.168.8.55" }
+    ]
   },
 }
 ```
