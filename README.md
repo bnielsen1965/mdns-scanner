@@ -2,18 +2,42 @@
 
 A NodeJS module used to scan for multi-cast DNS entries.
 
-The mdns-scanner provides a scanner and services module. The scanner module listens
-for raw mDNS packets on IPv4 and/or IPv6 interfaces while providing a query method
-to send mDNS queries out on the interfaces. The services module is optionally used
-with a scanner to process the raw mDNS packets into collated service details.
+The mdns-scanner module provides a *scanner* and *services* class. The scanner
+class listens for raw mDNS packets on IPv4 and/or IPv6 interfaces while providing
+a query method to send mDNS queries out on the interfaces. The services class is
+optionally used with a scanner instance to process the raw mDNS packets into
+collated service details.
 
 
-# Scanner module
+# Usage
 
-The Scanner module is used to listen for multi-cast DNS (mDNS) packets and send
+The *scanner* and *services* classes cover two possible use cases. Low level
+monitoring of mDNS packets on a network and higher level mDNS packet analysis
+to collate a list of discovered network services.
+
+
+## Low level monitoring
+
+The *scanner* class is used to setup a packet listener on one or more network
+interfaces where you need to listen for mDNS packets. The scanner will emit
+*packet* events with the raw packet when any mDNS packet is received. Raw mDNS
+packets can then be processed by an event handler in an application.
+
+
+## High level service discovery
+
+The *services* class is provided as a means of collating mDNS packets into a
+coherent list of discovered network services. An instance of the services class
+takes a scanner instance and listens for the mDNS packets which it then processes
+into a stored list of discovered network services and details.
+
+
+# Scanner class
+
+The Scanner class is used to listen for multi-cast DNS (mDNS) packets and send
 mDNS queries over the network to initiate discovery of available services. Create
 and initialize a Scanner instance to start listening for mDNS packets and use the
-query() method to send mDNS queries. The Scanner module will emit events to
+query() method to send mDNS queries. The Scanner class will emit events to
 indicate conditions, status, and received mDNS packets.
 
 Example:
@@ -64,7 +88,7 @@ received packets.
 ### error
 
 The error event is emitted when an error occurs during initialization or operation
-of the Scanner module. The event payload is an error message.
+of the Scanner class. The event payload is an error message.
 
 
 ### warn
@@ -85,7 +109,7 @@ The packet event is emitted whenever an mDNS packet is received by the Scanner.
 The payload includes two arguments, the raw packet object and an rinfo object
 with details about the receiving interface.
 
-**NOTE:** The Services module can be used to consume the packet events from a
+**NOTE:** The Services class can be used to consume the packet events from a
 Scanner instance to produce service details.
 
 
@@ -177,9 +201,9 @@ query questions and types.
 When finished with a Scanner the destroy() method is called to close all sockets
 
 
-# Services module
+# Services class
 
-The services module is used to collate mDNS responses into meaningful service
+The services class is used to collate mDNS responses into meaningful service
 data. This includes automatically injecting additional query packets to discover
 complete details about advertised services.
 
@@ -239,9 +263,9 @@ setTimeout(() => {
 
 ## Services events
 
-The Services module forwards the error, warn, and debug events from the associated
-Scanner module making it possible to use event listeners on only the Services module
-in place of listeners on both modules. The Services module adds a discovered and
+The Services class forwards the error, warn, and debug events from the associated
+Scanner class making it possible to use event listeners on only the Services class
+in place of listeners on both classs. The Services class adds a discovered and
 query event to note when a service is discovered and to inform when a query is
 received.
 
@@ -262,8 +286,8 @@ with a reason for the warning.
 ### debug
 
 When debug is enabled the debug events will be emitted during operation. If debug
-is also enabled in the Scanner module then Scanner debug events will also be
-emitted from the Services module as long as debug is enabled.
+is also enabled in the Scanner class then Scanner debug events will also be
+emitted from the Services class as long as debug is enabled.
 
 
 ### discovered
@@ -351,6 +375,13 @@ let Services = new Services(scanner, { debug: true });
 ### on(event, handler)
 
 Use the on(event, handler) method to attach listeners to the Scanner events.
+
+
+### reset()
+
+The reset() method is used to clear out the list of discovered services in
+preparation for a new scan. This will clear out the *types* and *namedServices*
+properties.
 
 
 ## Services properties
