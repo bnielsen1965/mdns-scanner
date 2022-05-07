@@ -9,6 +9,22 @@ optionally used with a scanner instance to process the raw mDNS packets into
 collated service details.
 
 
+# Table of Contents
+
+* [Usage](#usage)
+  * [Low level monitoring](#low-level-monitoring)
+  * [High level service discovery](#high-level-service-discovery)
+* [Scanner class](#scanner-class)
+  * [Scanner events](#scanner-events)
+  * [Scanner methods](#scanner-methods)
+* [Services class](#services-class)
+  * [Services events](#services-events)
+  * [Services methods](#services-methods)
+  * [Services properties](#services-properties)
+* [Additional Notes](#additional-notes)
+  * [Interface Family](#interface-family)
+
+
 # Usage
 
 The *scanner* and *services* classes cover two possible use cases. Low level
@@ -328,31 +344,33 @@ Example:
 {
   "type": "service",
   "data": {
-    "name": "QNAP4619",
+    "name": "Brother HL-2070N series",
     "rinfo": {
-      "address": "192.168.8.55",
+      "address": "192.168.8.168",
       "family": "IPv4",
-      "port": 2825,
-      "size": 142,
-      "interface": "enp6s0"
+      "port": 5353,
+      "size": 122
     },
     "service": {
-      "name": "QNAP4619._smb._tcp.local",
+      "name": "Brother HL-2070N series._http._tcp.local",
       "type": "SRV",
-      "ttl": 10,
+      "ttl": 60,
       "class": "IN",
-      "flush": false,
+      "flush": true,
       "data": {
         "priority": 0,
         "weight": 0,
-        "port": 445,
-        "target": "QNAP4619.local"
+        "port": 80,
+        "target": "brother.local"
       }
     },
-    "host": "QNAP4619.local",
+    "host": "brother.local",
+    "port": 80,
     "addresses": [
-      { "family": "ipv6", "address": "fe80::265e:beff:fe40:e055" },
-      { "family": "ipv4", "address": "192.168.8.55" }
+      {
+        "family": "IPv4",
+        "address": "192.168.8.168"
+      }
     ]
   }
 }
@@ -417,50 +435,120 @@ namedServices object where each service entry is keyed by the full service name.
 Example:
 ```json
 {
-  "FD299CF6FD29._touch-able._tcp.local": {
-    "name": "FD299CF6FD29",
+  "SONY XBR-65A8H._androidtvremote2._tcp.local": {
+    "name": "SONY XBR-65A8H",
     "rinfo": {
-      "address": "fe80::d6c0:e87c:69d2:ccf1%enp0s20f0u8u2",
+      "address": "fe80::9e5a:25c4:83f3:c3a6%enp6s0",
       "family": "IPv6",
       "port": 5353,
-      "size": 241,
-      "interface": "enp0s20f0u8u2"
+      "size": 107
     },
+    "service": {
+      "name": "SONY XBR-65A8H._androidtvremote2._tcp.local",
+      "type": "SRV",
+      "ttl": 10,
+      "class": "IN",
+      "flush": false,
+      "data": {
+        "priority": 0,
+        "weight": 0,
+        "port": 6466,
+        "target": "Android.local"
+      }
+    },
+    "host": "Android.local",
+    "port": 6466,
+    "addresses": [
+      {
+        "family": "IPv4",
+        "address": "192.168.8.143"
+      },
+      {
+        "family": "IPv6",
+        "address": "fe80::9e5a:25c4:83f3:c3a6"
+      }
+    ]
+  },
+  "SONY XBR-65A8H._airplay._tcp.local": {
+    "name": "SONY XBR-65A8H",
+    "rinfo": {
+      "address": "fe80::9e5a:25c4:83f3:c3a6%enp6s0",
+      "family": "IPv6",
+      "port": 5353,
+      "size": 107
+    },
+    "service": {
+      "name": "SONY XBR-65A8H._airplay._tcp.local",
+      "type": "SRV",
+      "ttl": 10,
+      "class": "IN",
+      "flush": false,
+      "data": {
+        "priority": 0,
+        "weight": 0,
+        "port": 7000,
+        "target": "Android.local"
+      }
+    },
+    "host": "Android.local",
+    "port": 7000,
     "txt": {
       "strings": [
         ""
       ],
       "keyValuePairs": {}
     },
-    "service": {
-      "name": "FD299CF6FD29._touch-able._tcp.local",
-      "type": "SRV",
-      "ttl": 10,
-      "class": "IN",
-      "flush": false,
-      "data": {
-        "priority": 0,
-        "weight": 0,
-        "port": 3689,
-        "target": "fedora.local"
-      }
-    },
-    "host": "fedora.local",
     "addresses": [
-      { "family": "ipv6", "address": "fe80::d6c0:e87c:69d2:ccf1" }
+      {
+        "family": "IPv4",
+        "address": "192.168.8.143"
+      },
+      {
+        "family": "IPv6",
+        "address": "fe80::9e5a:25c4:83f3:c3a6"
+      }
     ]
   },
-  "QNAP4619 [24:5e:be:40:e0:55]._workstation._tcp.local": {
-    "name": "QNAP4619 [24:5e:be:40:e0:55]",
+  "BRAVIA-4K-UR3-8d327bada35505310c8435e50214d3f3._googlecast._tcp.local": {
+    "name": "BRAVIA-4K-UR3-8d327bada35505310c8435e50214d3f3",
     "rinfo": {
-      "address": "192.168.8.55",
+      "address": "192.168.8.143",
       "family": "IPv4",
-      "port": 64930,
-      "size": 170,
+      "port": 5353,
+      "size": 362,
       "interface": "enp6s0"
     },
     "service": {
-      "name": "QNAP4619 [24:5e:be:40:e0:55]._workstation._tcp.local",
+      "name": "BRAVIA-4K-UR3-8d327bada35505310c8435e50214d3f3._googlecast._tcp.local",
+      "type": "SRV",
+      "ttl": 120,
+      "class": "IN",
+      "flush": false,
+      "data": {
+        "priority": 0,
+        "weight": 0,
+        "port": 8009,
+        "target": "8d327bad-a355-0531-0c84-35e50214d3f3.local"
+      }
+    },
+    "host": "8d327bad-a355-0531-0c84-35e50214d3f3.local",
+    "port": 8009,
+    "txt": {
+      "strings": [
+        ""
+      ],
+      "keyValuePairs": {}
+    },
+    "addresses": [
+      {
+        "family": "IPv4",
+        "address": "192.168.8.143"
+      }
+    ]
+  },
+  "RPINAS._smb._tcp.local": {
+    "service": {
+      "name": "RPINAS._smb._tcp.local",
       "type": "SRV",
       "ttl": 10,
       "class": "IN",
@@ -468,15 +556,71 @@ Example:
       "data": {
         "priority": 0,
         "weight": 0,
-        "port": 9,
-        "target": "QNAP4619.local"
+        "port": 445,
+        "target": "rpinas.local"
       }
     },
-    "host": "QNAP4619.local",
+    "host": "rpinas.local",
+    "port": 445,
     "addresses": [
-      { "family": "ipv6", "address": "fe80::265e:beff:fe40:e055" },
-      { "family": "ipv4", "address": "192.168.8.55" }
-    ]
+      {
+        "family": "IPv4",
+        "address": "192.168.8.3"
+      },
+      {
+        "family": "IPv6",
+        "address": "fe80::c699:96f5:886:c510"
+      }
+    ],
+    "name": "RPINAS",
+    "rinfo": {
+      "address": "fe80::c699:96f5:886:c510%enp6s0",
+      "family": "IPv6",
+      "port": 5353,
+      "size": 122,
+      "interface": "enp6s0"
+    }
+  }
+}
+```
+
+
+# Additional Notes
+
+## Interface Family
+
+Beginning in NodeJS version 18 the value of network interface family properties
+will change from a string to an integer, i.e. "IPv4" will become 4.
+
+The scanner and services classes are compatible with the family format changes
+in NodeJS version 18. However, the family values provided in the discovered
+service entries by the services class will continue to use the string family
+representation for the interface.
+
+This will result in a mix of family values in discovered services as some
+information comes from NodeJS while other details are parsed from the mDNS
+packet.
+
+I.E. The rinfo property in a discovered service is provided by NodeJS and will
+use the NodeJS family format, while the service property parsed from the mDNS
+packet will use the string family format.
+
+Note the service object below has an rinfo family of 4 while the addresses
+property has an address with family of "IPv4".
+```json
+{
+  "name": "Brother HL-2070N series",
+  "rinfo": { "address": "192.168.8.168", "family": 4, "port": 5353, "size": 122 },
+  "service": {
+    "name": "Brother HL-2070N series._http._tcp.local",
+    "type": "SRV",
+    "ttl": 60,
+    "class": "IN",
+    "flush": true,
+    "data": { "priority": 0, "weight": 0, "port": 80, "target": "brother.local" }
   },
+  "host": "brother.local",
+  "port": 80,
+  "addresses": [ { "family": "IPv4", "address": "192.168.8.168" } ]
 }
 ```
