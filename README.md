@@ -139,6 +139,7 @@ Scanner instance.
 ```javascript
 let scanner = new Scanner({
   reuseAddr: true,
+  srcPort: 0,
   interfaces: null,
   ttl: 255,
   loopback: true,
@@ -151,6 +152,17 @@ let scanner = new Scanner({
 
 Reuse address when socket binds even if another socket is bound to the address.
 Default: true
+
+
+#### srcPort
+
+Specify the port number to use for the socket that will send mDNS packets. In 
+some cases a device may only respond to mDNS query packets that originate from 
+the standard mDNS port 5353.
+
+When the value for the srcPort is 0 then the operating system will assign a
+currently available port number.
+Default: 0
 
 
 #### ttl
