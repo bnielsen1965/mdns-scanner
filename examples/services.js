@@ -6,7 +6,7 @@ const { Scanner, Services } = require('../index.js');
 // create instance of scanner with init disabled
 let scanner = new Scanner({
   debug: true,
-//  interfaces: '192.168.8.238'
+//  interfaces: '192.168.8.190'
 //  interfaces: ['fe80::a025:dc5b:22b7:2247']
 //  interfaces: ['enp6s0']//, '192.168.18.130']
 });

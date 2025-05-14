@@ -7,10 +7,10 @@ const { Scanner } = require('../index.js');
 let scanner = new Scanner({
   debug: true,
   reuseAddr: true,
-  srcPort: 5353
-//  interfaces: '192.168.8.238'
-//  interfaces: ['fe80::a025:dc5b:22b7:2247']
-//  interfaces: ['enp6s0']//, '192.168.18.130']
+  srcPort: 5353,
+  // interfaces: '192.168.8.190'
+//  interfaces: ['fe80::5742:d69c:82a9:da7b']
+  // interfaces: ['enp8s0', '192.168.80.215']
 });
 
 
